@@ -1,0 +1,64 @@
+package com.example.RegisterApp.controllers;
+
+import com.example.RegisterApp.model.User;
+import com.example.RegisterApp.repository.UserRepository;
+import com.example.RegisterApp.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/users")
+@SecurityRequirement(name = "bearerAuth")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
+@Tag(name = "User", description = "User management API")
+public class UserCrudController {
+
+    @Autowired
+    private UserService userService;
+    @Autowired
+    UserRepository userRepository;
+
+    @Operation(summary = "Get a user by ID")
+    @ApiResponse(responseCode = "200", description = "Successful operation")
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUser(id));
+    }
+
+    @Operation(summary = "Get all users")
+    @ApiResponse(responseCode = "200", description = "Successful operation")
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @Operation(summary = "Create a new user")
+    @ApiResponse(responseCode = "201", description = "User created")
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        return ResponseEntity.ok(userService.createUser(user));
+    }
+
+    @Operation(summary = "Update a user")
+    @ApiResponse(responseCode = "200", description = "User updated")
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(id, user));
+    }
+
+    @Operation(summary = "Delete a user")
+    @ApiResponse(responseCode = "204", description = "User deleted")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
+}
