@@ -23,8 +23,7 @@ public class UserCrudController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    UserRepository userRepository;
+
 
     @Operation(summary = "Get a user by ID")
     @ApiResponse(responseCode = "200", description = "Successful operation")
@@ -41,7 +40,7 @@ public class UserCrudController {
     }
 
     @Operation(summary = "Create a new user")
-    @ApiResponse(responseCode = "201", description = "User created")
+    @ApiResponse(responseCode = "200", description = "User created")
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.createUser(user));

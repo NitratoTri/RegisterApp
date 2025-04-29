@@ -43,6 +43,7 @@ public class User {
     @JsonIgnore
     @JoinColumn(name = "created_by_id")
     private User created_by;
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "updated_by_id")
