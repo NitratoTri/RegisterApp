@@ -60,4 +60,12 @@ public class UserCrudController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+
+    @Operation(summary = "Assign a role to a user")
+    @ApiResponse(responseCode = "200", description = "Role assigned to user")
+    @PostMapping("/{userId}/roles/{roleId}")
+    public ResponseEntity<Void> assignRoleToUser(@PathVariable Long userId, @PathVariable Long roleId) {
+        userService.assignRoleToUserById(userId, roleId);
+        return ResponseEntity.ok().build();
+    }
 }

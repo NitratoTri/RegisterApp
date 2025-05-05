@@ -63,6 +63,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void assignRoleToUserById(Long id, Long roleId) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new RuntimeException("Role not found with id: " + roleId));
+
+        UserRole userRole = new UserRole(user, role);
+        userRoleRepository.save(userRole);
+    }
+
+    @Override
+    public void assignRoleToUserByRoleName(Long id, String roleName) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        Role role = roleRepository.findByName(roleName);
+        if (role == null) {
+            throw new RuntimeException("Role not found with name: " + roleName);
+        }
+
+        UserRole userRole = new UserRole(user, role);
+        userRoleRepository.save(userRole);
+    }
+
+
+    @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -139,4 +164,5 @@ public class UserServiceImpl implements UserService {
        }
        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
    }
+
 }
