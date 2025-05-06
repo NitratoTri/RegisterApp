@@ -23,8 +23,7 @@ public class UserCrudController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    UserRepository userRepository;
+
 
     @Operation(summary = "Get a user by ID")
     @ApiResponse(responseCode = "200", description = "Successful operation")
@@ -41,7 +40,7 @@ public class UserCrudController {
     }
 
     @Operation(summary = "Create a new user")
-    @ApiResponse(responseCode = "201", description = "User created")
+    @ApiResponse(responseCode = "200", description = "User created")
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.createUser(user));
@@ -60,5 +59,13 @@ public class UserCrudController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Assign a role to a user")
+    @ApiResponse(responseCode = "200", description = "Role assigned to user")
+    @PostMapping("/{userId}/roles/{roleId}")
+    public ResponseEntity<Void> assignRoleToUser(@PathVariable Long userId, @PathVariable Long roleId) {
+        userService.assignRoleToUserById(userId, roleId);
+        return ResponseEntity.ok().build();
     }
 }

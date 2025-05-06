@@ -23,6 +23,8 @@ public interface UserService {
     public Collection<Role> conseguirRolesByUser(User user);
     public void saveCifrandoPassword(User user);
 
+    void assignRoleToUserById(Long id, Long roleId);
+    void assignRoleToUserByRoleName(Long id, String roleName);
 
     User getUser(Long id);
     List<User> getAllUsers();

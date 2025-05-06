@@ -21,13 +21,17 @@ public class Role {
     @JsonIgnore
     private List<UserRole> userRoles = new ArrayList<>();
 
+    //Relation between role and permissions
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<RolePermissions> rolePermissions = new ArrayList<>();
+    
     public Role() {
     }
 
-    public Role(String name, String description, User user_role) {
+    public Role(String name, String description) {
         this.name = name;
         this.description = description;
-
     }
 
     public Long getId() {
@@ -59,7 +63,12 @@ public class Role {
         return userRoles;
     }
 
-    public void setUserRoles(List<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public List<RolePermissions> getRolePermissions() {
+        return rolePermissions;
+    }
+    public void setRolePermissions(Permissions pnew) {
+        RolePermissions rolePermission = new RolePermissions(this, pnew);
+        this.rolePermissions.add(rolePermission);
+        pnew.getRolePermissions().add(rolePermission);
     }
 }

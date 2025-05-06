@@ -3,9 +3,9 @@ package com.example.RegisterApp.iniciarbbdd;
 
 
 
-import com.example.RegisterApp.model.Role;
-import com.example.RegisterApp.model.User;
-import com.example.RegisterApp.model.UserRole;
+import com.example.RegisterApp.model.*;
+import com.example.RegisterApp.repository.PermissionRepository;
+import com.example.RegisterApp.repository.RolePermissionRepo;
 import com.example.RegisterApp.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,10 +23,29 @@ public class CrearBBBDD implements CommandLineRunner {
     @Autowired
     RoleRepository roleRepository;
     @Autowired
+    PermissionRepository permissionRepository;
+    @Autowired
+    RolePermissionRepo rolePermissionRepository;
+    @Autowired
     JwtUtil jwtUtil;
     @Override
     public void run(String... args) throws Exception {
         if(roleRepository.findAll().isEmpty()){
+            //Create permissions
+            Permissions permission1 = new Permissions();
+            permission1.setName("READ");
+            permission1.setDescription("Permiso de lectura");
+
+
+            Permissions permission2 = new Permissions();
+            permission2.setName("WRITE");
+            permission2.setDescription("Permiso de escritura");
+
+            //save perms
+            permissionRepository.save(permission1);
+            permissionRepository.save(permission2);
+            // Create roles
+
             Role role = new Role();
             role.setName("ROLE_ADMIN");
             role.setDescription("Administrador");
@@ -37,6 +56,7 @@ public class CrearBBBDD implements CommandLineRunner {
             role2.setDescription("Usuario");
             roleRepository.save(role2);
 
+            // Create users
             User admin =new User();
             admin.setName("admin");
             admin.setLastName("");
@@ -80,6 +100,11 @@ public class CrearBBBDD implements CommandLineRunner {
             userRole3.setUser(user2);
             userRoleRepository.save(userRole3);
 
+            // Assign permissions to roles
+            RolePermissions rolePermission = new RolePermissions();
+            rolePermission.setRole(role); //role es el de admin
+            rolePermission.setPermission(permission1); //permission1 es el de lectura
+            rolePermissionRepository.save(rolePermission);
 
             // Generate and print tokens
             String adminToken = jwtUtil.generateToken(userService.loadUserByUsername(admin.getEmail()));
