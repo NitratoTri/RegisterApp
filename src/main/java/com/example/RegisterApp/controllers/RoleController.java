@@ -59,6 +59,11 @@ public class RoleController {
         return ResponseEntity.noContent().build();
     }
 
-    //TO-DO: Add methods for assigning roles to users, etc.
-
+    @Operation(summary = "Assign permission to role")
+    @ApiResponse(responseCode = "200", description = "Permission assigned to role")
+    @PutMapping("/{id}/permissions/{permissionId}")
+    public ResponseEntity<Void> assignPermissionToRole(@PathVariable Long id, @PathVariable Long permissionId) {
+        roleService.assingPermissionToRoleById(id, permissionId);
+        return ResponseEntity.ok().build();
+    }
 }

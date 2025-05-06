@@ -1,6 +1,10 @@
 package com.example.RegisterApp.services.imp;
 
+import com.example.RegisterApp.model.Permissions;
 import com.example.RegisterApp.model.Role;
+import com.example.RegisterApp.model.RolePermissions;
+import com.example.RegisterApp.repository.PermissionRepository;
+import com.example.RegisterApp.repository.RolePermissionRepo;
 import com.example.RegisterApp.repository.RoleRepository;
 import com.example.RegisterApp.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +16,10 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleRepository roleRepository;
-
+    @Autowired
+    PermissionRepository permissionRepository;
+    @Autowired
+    RolePermissionRepo rolePermissionRepo;
     //Service for roles methods
     public RoleServiceImpl(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
@@ -48,5 +55,19 @@ public class RoleServiceImpl implements RoleService {
 
     public void deleteRole(Long id) {
         roleRepository.deleteById(id);
+    }
+
+    @Override
+    public void assingPermissionToRoleById(Long id, Long permissionId) {
+        Role role = roleRepository.findById(id).orElse(null);
+        Permissions permission = permissionRepository.findById(permissionId).orElse(null);
+        if (role != null && permission != null) {
+            RolePermissions rolePermission = new RolePermissions();
+            rolePermission.setRole(role);
+            rolePermission.setPermission(permission);
+            rolePermissionRepo.save(rolePermission);
+        } else {
+            System.out.println("Role or Permission not found");
+        }
     }
 }
