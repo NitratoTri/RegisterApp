@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
+import org.springframework.stereotype.Service;
+
 //Configuration for OpenApi
 @OpenAPIDefinition(
         info = @Info(
@@ -31,7 +33,11 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 @Server(
                         description = "Local server",
                         url = "http://localhost:9000"
-                )
+                ),
+               // @Server(
+                 //       description = "Production server",
+                   //     url = "mysql://root:OIKuKeTrUACsJeRupTLuBKxyMGunmZiV@interchange.proxy.rlwy.net:37985/railway"
+                //)
         }
 )
 //Security scheme
