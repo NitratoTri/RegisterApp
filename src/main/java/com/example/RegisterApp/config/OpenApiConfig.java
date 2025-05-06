@@ -34,10 +34,10 @@ import org.springframework.stereotype.Service;
                         description = "Local server",
                         url = "http://localhost:9000"
                 ),
-               // @Server(
-                 //       description = "Production server",
-                   //     url = "mysql://root:OIKuKeTrUACsJeRupTLuBKxyMGunmZiV@interchange.proxy.rlwy.net:37985/railway"
-                //)
+                @Server(
+                    description = "Railway/Deployment server",
+                     url = "https://outstanding-determination-production.up.railway.app"
+                )
         }
 )
 //Security scheme
