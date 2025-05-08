@@ -36,7 +36,7 @@ import org.springframework.stereotype.Service;
                 ),
                 @Server(
                     description = "Railway/Deployment server",
-                     url = "https://successful-heart-production.up.railway.app"
+                    url = "https://registerapp.up.railway.app"
                 )
         }
 )
