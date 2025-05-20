@@ -84,6 +84,26 @@ public class CrearBBBDD implements CommandLineRunner {
             user2.setCreated_by(admin);
             userService.saveCifrandoPassword(user2);
 
+            //Create 2 more users for my coworkers
+            User user3=new User();
+            user3.setName("Judith");
+            user3.setLastName("Molina Sanchez");
+            user3.setUsername("Judith");
+            user3.setEmail("judith@gmail.com");
+            user3.setPassword("1234");
+            user3.setCreated_by(admin);
+            userService.saveCifrandoPassword(user3);
+
+            User user4=new User();
+            user4.setName("Edwin");
+            user4.setLastName("Nuñez");
+            user4.setEmail("edwin@gmail.com");
+            user4.setUsername("Edwin");
+            user4.setPassword("1234");
+            user4.setCreated_by(admin);
+            userService.saveCifrandoPassword(user4);
+
+
             //Le asigno rol de ADMIN
             UserRole userRole = new UserRole();
             userRole.setRole(role); //role es el de admin
@@ -99,6 +119,18 @@ public class CrearBBBDD implements CommandLineRunner {
             userRole3.setRole(role2); //role2 es el de usuario
             userRole3.setUser(user2);
             userRoleRepository.save(userRole3);
+
+            //Assign role to Judith and Edwin
+            UserRole userRole4 = new UserRole();
+            userRole4.setRole(role); //role2 es el de usuario
+            userRole4.setUser(user3);
+            userRoleRepository.save(userRole4);
+
+            UserRole userRole5 = new UserRole();
+            userRole5.setRole(role); //role2 es el de usuario
+            userRole5.setUser(user4);
+            userRoleRepository.save(userRole5);
+
 
             // Assign permissions to roles
             RolePermissions rolePermission = new RolePermissions();
