@@ -35,8 +35,8 @@ import org.springframework.stereotype.Service;
                         url = "http://localhost:9000"
                 ),
                 @Server(
-                    description = "Railway/Deployment server",
-                     url = "https://outstanding-determination-production.up.railway.app"
+                        description = "Railway/Deployment server",
+                        url = "https://registerapp.up.railway.app"
                 )
         }
 )
