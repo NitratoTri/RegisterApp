@@ -65,9 +65,7 @@ public class SpringSecurity {
     /// Manager de los usuarios
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        configuration.getAuthenticationManager();
-
-        return null;
+        return configuration.getAuthenticationManager();
     }
 
     //Provedor de auth
