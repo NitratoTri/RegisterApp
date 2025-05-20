@@ -4,7 +4,6 @@ import com.example.RegisterApp.security.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,6 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
 
 @Configuration
 @EnableWebSecurity
@@ -26,7 +28,8 @@ public class SpringSecurity {
 
     @Autowired
     private UserDetailsService userDetailsService;
-
+    @Autowired
+    private CorsConfigurationSource corsConfigurationSource;
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
     @Bean
@@ -38,6 +41,8 @@ public class SpringSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         // Builder
         return httpSecurity
+                // Deshabilitar CSRF (Cross-Site Request Forgery)
+                .cors(cors -> cors.configurationSource( corsConfigurationSource))
                 .csrf(csrf -> csrf.disable())
                 //No guarda la sesion de memoria, el tiempo de vida de la sesion es el tiempo de vida del token
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
