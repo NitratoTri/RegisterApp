@@ -63,6 +63,7 @@ public class CrearBBBDD implements CommandLineRunner {
             admin.setUsername("admin");
             admin.setEmail("admin@gmail.com");
             admin.setPassword("1234");
+            admin.setStatus(true);
             userService.saveCifrandoPassword(admin);
 
 
@@ -73,6 +74,7 @@ public class CrearBBBDD implements CommandLineRunner {
             user.setEmail("pabloalvarezolaya@gmail.com");
             user.setPassword("1234");
             user.setCreated_by(admin);
+            user.setStatus(true);
             userService.saveCifrandoPassword(user);
 
             User user2=new User();
@@ -82,6 +84,7 @@ public class CrearBBBDD implements CommandLineRunner {
             user2.setEmail("juan@gmail.com");
             user2.setPassword("1234");
             user2.setCreated_by(admin);
+            user2.setStatus(true);
             userService.saveCifrandoPassword(user2);
 
             //Create 2 more users for my coworkers
@@ -92,6 +95,7 @@ public class CrearBBBDD implements CommandLineRunner {
             user3.setEmail("judith@gmail.com");
             user3.setPassword("1234");
             user3.setCreated_by(admin);
+            user3.setStatus(true);
             userService.saveCifrandoPassword(user3);
 
             User user4=new User();
@@ -101,6 +105,7 @@ public class CrearBBBDD implements CommandLineRunner {
             user4.setUsername("Edwin");
             user4.setPassword("1234");
             user4.setCreated_by(admin);
+            user4.setStatus(true);
             userService.saveCifrandoPassword(user4);
 
 
