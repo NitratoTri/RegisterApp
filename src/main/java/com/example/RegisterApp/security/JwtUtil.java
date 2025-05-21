@@ -1,5 +1,6 @@
 package com.example.RegisterApp.security;
 
+    import com.example.RegisterApp.model.User;
     import io.jsonwebtoken.Claims;
     import io.jsonwebtoken.Jwts;
     import io.jsonwebtoken.SignatureAlgorithm;
@@ -48,9 +49,16 @@ package com.example.RegisterApp.security;
             return extractExpiration(token).before(new Date());
         }
 
-        public String generateToken(UserDetails userDetails) {
+        public String generateToken(User user) { // Cambiar parámetro a User
             Map<String, Object> claims = new HashMap<>();
-            return createToken(claims, userDetails.getUsername());
+            claims.put("id", user.getId());
+            claims.put("email", user.getEmail());
+            claims.put("name", user.getName());
+            claims.put("lastname", user.getLastName());
+            claims.put("username", user.getUsername());
+            //claims.put("password", user.getPassword()); // ¡Advertencia de seguridad!
+            claims.put("status", user.isStatus());
+            return createToken(claims, user.getUsername());
         }
 
         private String createToken(Map<String, Object> claims, String subject) {

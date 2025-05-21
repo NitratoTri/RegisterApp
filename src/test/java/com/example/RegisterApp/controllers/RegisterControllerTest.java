@@ -2,6 +2,7 @@ package com.example.RegisterApp.controllers;
 
 import com.example.RegisterApp.controllers.RegisterController;
 import com.example.RegisterApp.model.User;
+import com.example.RegisterApp.repository.RoleRepository;
 import com.example.RegisterApp.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +29,9 @@ class RegisterControllerTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private RoleRepository roleRepository;
 
     @Test
     void testSuccessfulRegistration() {

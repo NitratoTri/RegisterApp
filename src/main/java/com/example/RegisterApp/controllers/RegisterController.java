@@ -51,6 +51,7 @@ public class RegisterController {
         }
          else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setStatus(false);
             user.setUserRoles(roleRepository.findByName("ROLE_USER"));
             return ResponseEntity.ok(userService.createUser(user));
         }

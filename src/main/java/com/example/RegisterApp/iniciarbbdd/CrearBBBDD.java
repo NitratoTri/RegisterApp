@@ -143,14 +143,7 @@ public class CrearBBBDD implements CommandLineRunner {
             rolePermission.setPermission(permission1); //permission1 es el de lectura
             rolePermissionRepository.save(rolePermission);
 
-            // Generate and print tokens
-            String adminToken = jwtUtil.generateToken(userService.loadUserByUsername(admin.getEmail()));
-            String userToken = jwtUtil.generateToken(userService.loadUserByUsername(user.getEmail()));
-            String user2Token = jwtUtil.generateToken(userService.loadUserByUsername(user2.getEmail()));
 
-            System.out.println("Admin Token: " + adminToken);
-            System.out.println("User Token: " + userToken);
-            System.out.println("User2 Token: " + user2Token);
         }
 
     }

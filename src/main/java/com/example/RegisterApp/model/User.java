@@ -84,4 +84,12 @@ public class User {
     public void setUserRoles(Role role) {
         this.userRoles.add(new UserRole(this, role));
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 }

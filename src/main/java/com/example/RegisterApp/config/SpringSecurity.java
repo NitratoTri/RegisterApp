@@ -51,7 +51,8 @@ public class SpringSecurity {
                                         "/v3/api-docs",
                                         "/v3/api-docs/**",
                                         "/swagger-ui.html", "/api/register/**",
-                                        "/api/login").permitAll()
+                                        "/api/login",
+                                        "/api/users").permitAll()
                                 .requestMatchers("/api/users/**", "/api/users", "/api/permissions",
                                         "/api/permissions/**", "/api/roles", "/api/roles/**").authenticated()
                                 .anyRequest().permitAll()
