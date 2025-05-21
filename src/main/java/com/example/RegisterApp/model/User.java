@@ -33,7 +33,7 @@ public class User {
     @Column(nullable=false)
     private String lastName;
     //Acitvo o no
-    @JsonIgnore
+    //@JsonIgnore
     private boolean status;
     @JsonIgnore
     private Date created_date= Date.valueOf(LocalDate.now());

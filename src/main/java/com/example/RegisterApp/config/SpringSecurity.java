@@ -50,12 +50,11 @@ public class SpringSecurity {
                         authorize.requestMatchers("/swagger-ui/**",
                                         "/v3/api-docs",
                                         "/v3/api-docs/**",
-                                        "/swagger-ui.html").permitAll()
-                                .requestMatchers("/api/users/**", "/api/users").authenticated()
-                                .requestMatchers("/api/register/**").permitAll()
+                                        "/swagger-ui.html", "/api/register/**",
+                                        "/api/login").permitAll()
+                                .requestMatchers("/api/users/**", "/api/users", "/api/permissions",
+                                        "/api/permissions/**", "/api/roles", "/api/roles/**").authenticated()
                                 .anyRequest().permitAll()
-
-
                 )
                 // Añadir el filtro de JWT
                 .addFilterBefore( jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
