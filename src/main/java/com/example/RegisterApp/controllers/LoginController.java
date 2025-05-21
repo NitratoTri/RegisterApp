@@ -37,7 +37,7 @@ public class LoginController {
 
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             String token = jwtUtil.generateToken(user); // Pasar el User directamente
-            return ResponseEntity.ok("Login Successful. Token: " + token);
+            return ResponseEntity.ok(token);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
     }
