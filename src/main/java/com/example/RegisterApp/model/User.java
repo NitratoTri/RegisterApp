@@ -34,7 +34,8 @@ public class User {
     private String lastName;
     //Acitvo o no
     //@JsonIgnore
-    private boolean status;
+    //We make this field false by default
+    private boolean status= false;
     @JsonIgnore
     private Date created_date= Date.valueOf(LocalDate.now());
     @JsonIgnore
