@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PermissionRepository extends JpaRepository<Permissions, Long> {
+    Permissions findByName(String read);
     // Custom query methods can be defined here if needed
 
 }

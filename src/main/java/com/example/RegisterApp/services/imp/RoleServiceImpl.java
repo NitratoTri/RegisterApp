@@ -21,10 +21,12 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     RolePermissionRepo rolePermissionRepo;
     //Service for roles methods
-    public RoleServiceImpl(RoleRepository roleRepository) {
+    @Autowired
+    public RoleServiceImpl(RoleRepository roleRepository, PermissionRepository permissionRepository, RolePermissionRepo rolePermissionRepo) {
         this.roleRepository = roleRepository;
+        this.permissionRepository = permissionRepository;
+        this.rolePermissionRepo = rolePermissionRepo;
     }
-
     public Role createRole(Role role) {
         Role newRole = new Role();
         newRole.setName(role.getName());

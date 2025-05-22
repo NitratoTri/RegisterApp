@@ -1,7 +1,6 @@
-package com.example.RegisterApp.Repositorys;
+package com.example.RegisterApp.repository;
 
 import com.example.RegisterApp.model.User;
-import com.example.RegisterApp.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

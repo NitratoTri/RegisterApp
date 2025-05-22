@@ -1,9 +1,7 @@
-package com.example.RegisterApp.Repositorys;
+package com.example.RegisterApp.repository;
 
 import com.example.RegisterApp.model.Role;
-import com.example.RegisterApp.repository.RoleRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
