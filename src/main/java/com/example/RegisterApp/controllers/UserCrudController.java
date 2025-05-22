@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @SecurityRequirement(name = "bearerAuth")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 @Tag(name = "User", description = "User management API")
 public class UserCrudController {
 
@@ -48,6 +47,7 @@ public class UserCrudController {
 
     @Operation(summary = "Update a user")
     @ApiResponse(responseCode = "200", description = "User updated")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         return ResponseEntity.ok(userService.updateUser(id, user));
@@ -55,6 +55,7 @@ public class UserCrudController {
 
     @Operation(summary = "Delete a user")
     @ApiResponse(responseCode = "204", description = "User deleted")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
