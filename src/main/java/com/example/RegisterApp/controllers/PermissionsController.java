@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @SecurityRequirement(name = "bearerAuth")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 @Tag(name = "Permission", description = "Permission management API")
 @RequestMapping("/api/permissions")
 public class PermissionsController {
