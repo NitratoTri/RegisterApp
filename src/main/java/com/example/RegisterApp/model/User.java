@@ -1,6 +1,7 @@
 package com.example.RegisterApp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Priority;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @Column(nullable=false, unique=true)
