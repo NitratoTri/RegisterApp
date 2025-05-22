@@ -52,7 +52,7 @@ class LoginControllerTest {
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("Login Successful. Token: " + "dummyToken", response.getBody()); // Ajusta el valor esperado según el formato real del token
+        assertEquals("dummyToken", response.getBody()); // Ajusta el valor esperado según el formato real del token
     }
 
     @Test

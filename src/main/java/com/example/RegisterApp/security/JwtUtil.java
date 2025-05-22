@@ -55,10 +55,9 @@ package com.example.RegisterApp.security;
             claims.put("email", user.getEmail());
             claims.put("name", user.getName());
             claims.put("lastname", user.getLastName());
-            claims.put("username", user.getUsername());
-            //claims.put("password", user.getPassword()); // ¡Advertencia de seguridad!
+            claims.put("rol", user.getUserRoles());
             claims.put("status", user.isStatus());
-            return createToken(claims, user.getUsername());
+            return createToken(claims, user.getEmail());
         }
 
         private String createToken(Map<String, Object> claims, String subject) {

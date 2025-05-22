@@ -6,15 +6,18 @@ import com.example.RegisterApp.model.UserRole;
 import com.example.RegisterApp.repository.RoleRepository;
 import com.example.RegisterApp.repository.UserRepository;
 import com.example.RegisterApp.repository.UserRoleRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class UserRoleRepositoryTest {
 
     @Autowired
@@ -25,6 +28,14 @@ class UserRoleRepositoryTest {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @BeforeEach
+    void setUp() {
+        // Limpiar la base de datos antes de cada prueba
+        userRoleRepository.deleteAll();
+        userRepository.deleteAll();
+        roleRepository.deleteAll();
+    }
 
     @Test
     void testFindByUser() {
