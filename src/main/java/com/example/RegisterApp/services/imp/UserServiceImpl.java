@@ -138,6 +138,13 @@ public class UserServiceImpl implements UserService {
         newUser.setEmail(user.getEmail());
         newUser.setLastName(user.getLastName());
         newUser.setName(user.getName());
+        //Assigming default role to the user
+        Role defaultRole = roleRepository.findByName("ROLE_USER");
+        if (defaultRole == null) {
+            throw new RuntimeException("Default role not found");
+        }
+        UserRole userRole = new UserRole(newUser, defaultRole);
+        userRoleRepository.save(userRole);
         return userRepository.save(newUser);
     }
 
