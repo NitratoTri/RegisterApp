@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @SecurityRequirement(name = "bearerAuth")
@@ -65,7 +67,49 @@ public class RoleController {
     @ApiResponse(responseCode = "200", description = "Permission assigned to role")
     @PutMapping("/{id}/permissions/{permissionId}")
     public ResponseEntity<Void> assignPermissionToRole(@PathVariable Long id, @PathVariable Long permissionId) {
+        Role role = roleService.getRoleById(id);
+        if (role == null) {
+            return ResponseEntity.notFound().build();
+        }
+        if (roleService.getRoleById(id).getRolePermissions().stream()
+                .anyMatch(rp -> rp.getPermission().getId().equals(permissionId))) {
+            return ResponseEntity.badRequest().build();
+        }
         roleService.assingPermissionToRoleById(id, permissionId);
         return ResponseEntity.ok().build();
     }
+    @Operation(summary = "Show the relation between 1 role and permissions")
+    @ApiResponse(responseCode = "200", description = "All permissions assigned to role")
+    @PutMapping("/{id}/permissions")
+    public ResponseEntity<List<String>> permissionsToThisRole(@PathVariable Long id) {
+        Role role = roleService.getRoleById(id);
+        if (role == null) {
+            return ResponseEntity.notFound().build();
+        }
+        List<String> permissions = role.getRolePermissions().stream()
+                .map(rp -> rp.getPermission().getName())
+                .toList();
+        return ResponseEntity.ok(permissions);
+    }
+
+   @Operation(summary = "Show the relation between all roles and permissions")
+   @ApiResponse(responseCode = "200", description = "All roles with their permissions")
+   @GetMapping("/rolepermissions")
+   public ResponseEntity<List<Map<String, Object>>> getAllRolesWithPermissions() {
+       List<Role> roles = roleService.getAllRoles();
+       if (roles.isEmpty()) {
+           return ResponseEntity.noContent().build();
+       }
+       List<Map<String, Object>> result = roles.stream().map(role -> {
+           Map<String, Object> map = new HashMap<>();
+           map.put("role", role.getName());
+           List<String> permissions = role.getRolePermissions().stream()
+                   .map(rp -> rp.getPermission().getName())
+                   .toList();
+           map.put("permissions", permissions);
+           return map;
+       }).toList();
+       return ResponseEntity.ok(result);
+   }
+
 }

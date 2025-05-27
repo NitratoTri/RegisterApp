@@ -33,4 +33,6 @@ public interface UserService {
     void deleteUser(Long id);
 
     UserDetails loadUserByUsername(String email);
+
+    List<String> getRolesByUserId(Long userId);
 }

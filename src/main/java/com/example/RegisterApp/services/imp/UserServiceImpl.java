@@ -172,4 +172,14 @@ public class UserServiceImpl implements UserService {
        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
    }
 
+    @Override
+    public List<String> getRolesByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + userId));
+        List<UserRole> userRoles = userRoleRepository.findByUser(user);
+        return userRoles.stream()
+                .map(userRole -> userRole.getRole().getName())
+                .collect(Collectors.toList());
+    }
+
 }

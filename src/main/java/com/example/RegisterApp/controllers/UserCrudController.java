@@ -38,6 +38,18 @@ public class UserCrudController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+    @Operation(summary = "Get a user by email")
+    @ApiResponse(responseCode = "200", description = "Successful operation")
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        User user = userService.findByEmail(email);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @Operation(summary = "Create a new user")
     @ApiResponse(responseCode = "200", description = "User created")
     @PostMapping
@@ -69,4 +81,16 @@ public class UserCrudController {
         userService.assignRoleToUserById(userId, roleId);
         return ResponseEntity.ok().build();
     }
+
+    @Operation(summary = "Get all roles assigned to a user")
+    @ApiResponse(responseCode = "200", description = "All roles assigned to user")
+    @GetMapping("/{userId}/roles")
+    public ResponseEntity<List<String>> getRolesByUserId(@PathVariable Long userId) {
+        List<String> roles = userService.getRolesByUserId(userId);
+        if (roles.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(roles);
+    }
+  
 }
