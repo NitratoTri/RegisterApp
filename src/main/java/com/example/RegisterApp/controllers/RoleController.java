@@ -114,7 +114,7 @@ public class RoleController {
 
     @Operation(summary = "Assign various permissions to a role")
     @ApiResponse(responseCode = "200", description = "Permissions assigned to role")
-    @PutMapping("/{id}/permissions")
+    @PutMapping("/{id}/permissions/multiple")
     public ResponseEntity<Void> assignMultiplePermissionsToRole(@PathVariable Long id, @RequestBody List<Long> permissionIds) {
         Role role = roleService.getRoleById(id);
         if (role == null) {
