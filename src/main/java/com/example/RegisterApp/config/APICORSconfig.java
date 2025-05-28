@@ -15,7 +15,8 @@ public class APICORSconfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:*", "https://registerapp.up.railway.app"));
+        configuration.setAllowedOriginPatterns(List.of("http://localhost:*", "https://registerapp.up.railway.app"
+        ,"https://meinedewnie.github.io", "https://jvvdix.github.io/PPracticas"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
