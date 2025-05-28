@@ -112,22 +112,22 @@ public class RoleController {
        return ResponseEntity.ok(result);
    }
 
-    @Operation(summary = "Assign various permissions to a role")
-    @ApiResponse(responseCode = "200", description = "Permissions assigned to role")
-    @PutMapping("/{id}/permissions/multiple")
-    public ResponseEntity<Void> assignMultiplePermissionsToRole(@PathVariable Long id, @RequestBody List<Long> permissionIds) {
-        Role role = roleService.getRoleById(id);
-        if (role == null) {
-            return ResponseEntity.notFound().build();
-        }
-        for (Long permissionId : permissionIds) {
-            if (role.getRolePermissions().stream()
-                    .anyMatch(rp -> rp.getPermission().getId().equals(permissionId))) {
-                return ResponseEntity.badRequest().build();
-            }
-            roleService.assingPermissionToRoleById(id, permissionId);
-        }
-        return ResponseEntity.ok().build();
-    }
+ @Operation(summary = "Asignar varios permisos a un rol")
+ @ApiResponse(responseCode = "200", description = "Permisos asignados al rol")
+ @PutMapping("/{id}/permissions/multiple")
+ public ResponseEntity<Void> assignMultiplePermissionsToRole(@PathVariable Long id, @RequestBody List<Long> permissionIds) {
+     Role role = roleService.getRoleById(id);
+     if (role == null) {
+         return ResponseEntity.notFound().build();
+     }
+     boolean anyAlreadyAssigned = permissionIds.stream()
+             .anyMatch(permissionId -> role.getRolePermissions().stream()
+                     .anyMatch(rp -> rp.getPermission().getId().equals(permissionId)));
+     if (anyAlreadyAssigned) {
+         return ResponseEntity.badRequest().build();
+     }
+     permissionIds.forEach(permissionId -> roleService.assingPermissionToRoleById(id, permissionId));
+     return ResponseEntity.ok().build();
+ }
 
 }
